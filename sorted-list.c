@@ -29,6 +29,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 	destroyNode will recursively free all of the nodes of a linked list.
 	SLDestroy will use destroyNode to free the dynamic memory of list structure.
  */
+
 void destroyNode(Node* n, DestructFuncT df){
 
 	if(n == NULL){
@@ -44,6 +45,9 @@ void SLDestroy(SortedListPtr list){
 	destroyNode(list->head, list->destroyer);
 	free(list);
 }
+
+
+
 
 
 /* 
@@ -73,12 +77,25 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 	Node* 	current		= list->head;
 	Node* 	previous	= NULL;
+
 	while(current != NULL && cf(current->data, newObj) > 0){
+		if(current!=NULL){
+			printf("%d %s vs %s\t",cf(current->data, newObj), *(char**)current->data, *(char**)newObj);
+		}
 		previous 	= current;
 		current 	= current->next;
 	}
+	if(current!=NULL){
+			printf("%d %s vs %s\t",cf(current->data, newObj), *(char**)current->data, *(char**)newObj);
+	}
+
+
+
 
 	if(current == NULL){
+
+		printf("Current IS NULL\t");
+
 		if(previous == NULL){
 			/* This is the first node of the list. */
 			list->head 		= temp;
@@ -86,7 +103,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 		} 
 		else{
 			previous->next 	= temp;
-			printf("Successfully added new object.\n");
+			printf("Successfully added new object at end of list.\n");
 		}
 
 		temp->next = NULL;
@@ -105,6 +122,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 			/* Temp is the new head of the list. */
 			temp->next 		= current;
 			list->head 		= temp;
+			printf("New head.\t");
 		}
 		else{
 			temp->next 		= current;
@@ -117,6 +135,8 @@ int SLInsert(SortedListPtr list, void *newObj){
 	return 1;
 
 }
+
+
 
 
 /*	
@@ -158,6 +178,7 @@ int SLRemove(SortedListPtr list, void *newObj){
 	if(previous == NULL){
 		/* Target is the head of the list. */
 		list->head = list->head->next;
+		printf("Replaced head of list.\t");
 	}
 	else{
 		/* Successfully found target.  Remove from list. */
@@ -168,6 +189,8 @@ int SLRemove(SortedListPtr list, void *newObj){
 	checkNodeValidity(current, list->destroyer);
 	return 1;
 }
+
+
 
 
 /*
@@ -191,9 +214,11 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	iterator->iterNode	= list->head;
 	iterator->destroyer	= list->destroyer;
 	list->head->pointerCount++;
-	printf("Iterator initialized.\n");
 	return iterator;
 }
+
+
+
 
 
 /*
@@ -213,10 +238,13 @@ void SLDestroyIterator(SortedListIteratorPtr iter){
 }
 
 
+
+
 /*
 	SLGetItem returns a void pointer to the data associated with iterNode.
 		Will return 0 if iterator advances out of bounds or if iterator DNE.
 */
+
 void * SLGetItem( SortedListIteratorPtr iter ){
 
 	if(iter == NULL){
@@ -228,6 +256,9 @@ void * SLGetItem( SortedListIteratorPtr iter ){
 	}
 	return iter->iterNode->data;
 }
+
+
+
 
 /*
 
