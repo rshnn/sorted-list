@@ -7,12 +7,29 @@ ifeq ($(DEBUG), TRUE)
 CCFLAGS += -g
 endif
 
-make: main.c sorted-list.c
-	$(COMPILER) $(CCFLAGS) -o sorted-list main.c sorted-list.c
+
+sl: 	main.o libsl.a
+	$(COMPILER) $(CCFLAGS) -o sl main.o libsl.a
+
+
+
+main.o: 		main.c
+	$(COMPILER) $(CCFLAGS) -c main.c
 	
+
+libsl.a:		sorted-list.o
+	ar rv libsl.a sorted-list.o
+
+
+sorted-list.o: 	sorted-list.c
+	$(COMPILER) $(CCFLAGS) -c sorted-list.c	
+
+
 debug:
 	make DEBUG = TRUE;
 	
 clean: 
-	rm -f sorted-list
+	rm -f sl
 	rm -f *o 
+	rm -f libsl.a
+
