@@ -132,7 +132,7 @@ void stringTest()
 	/* Prepare objects to add in an array. */
 	int i = 0;
 	char* inputArray[15] = {"modestmouse", "ledzeppelin", "beyonce", \
-								"blink182", "mastodon", "nujabes"};
+								"blink182", "mastodon", "nujabes", "radiohead"};
 	printf("LIST OF OBJECTS:\n");
 	for(i=0; i<=5; i++){
 		printf("%s\t",inputArray[i]);
@@ -143,7 +143,7 @@ void stringTest()
 	/* Create and fill sorted list with 5 items. */
 	 SL = SLCreate(compareStrings,destroyerNoMalloc);
 	for(i=0; i<=5; i++){
-		printf("%15s\t\t",inputArray[i]);
+		printf("Add %15s\t\t",inputArray[i]);
 		SLInsert(SL,&inputArray[i]);
 	}
 
@@ -156,6 +156,9 @@ void stringTest()
 	printf("%15s\t\t", *(char**)SL->head->data);
 	SLRemove(SL, SL->head->data);
 
+	printf("Add %15s\t\t",inputArray[6]);
+	SLInsert(SL,&inputArray[6]);
+
 
 	/* Create iterator and print list in order. */
 	printf("\nPRINTING:\n");
@@ -163,6 +166,9 @@ void stringTest()
 	i = 0;
 	if(SLGetItem(SLIter) != NULL)
 		printf("0\t%s\n", *(char **)SLGetItem(SLIter));
+
+	SLRemove(SL,&inputArray[1]);
+
 	do{
 		i++;
 		printf("%i\t",i);
