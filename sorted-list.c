@@ -80,13 +80,13 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 	while(current != NULL && cf(current->data, newObj) > 0){
 		if(current!=NULL){
-			printf("%d %s vs %s\t",cf(current->data, newObj), *(char**)current->data, *(char**)newObj);
+			//printf("%d %s vs %s\t",cf(current->data, newObj), *(char**)current->data, *(char**)newObj);
 		}
 		previous 	= current;
 		current 	= current->next;
 	}
 	if(current!=NULL){
-			printf("%d %s vs %s\t",cf(current->data, newObj), *(char**)current->data, *(char**)newObj);
+			//printf("%d %s vs %s\t",cf(current->data, newObj), *(char**)current->data, *(char**)newObj);
 	}
 
 
