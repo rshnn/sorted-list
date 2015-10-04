@@ -25,7 +25,8 @@ int compareStrings(void *p1, void *p2)
 
 /*  
 	Structure defintion and comparator function for type band.
-	Comparator function will return 0 if equal and negative arg1's year is less than arg2's. 
+	Comparator function will return 0 if equal and negative 
+	  arg1's year is less than arg2's. 
 */
 typedef struct Band
 {
@@ -86,17 +87,17 @@ void integerTest()
 	/* Create and fill sorted list with 5 items. */
 	SL = SLCreate(compareInts,destroyerNoMalloc);
 	for(i=0; i<=5; i++){
-		printf("%i\t",inputArray[i]);
+		printf("Add\t%i\t",inputArray[i]);
 		SLInsert(SL,&inputArray[i]);
 	}
 
 
 	/* Testing:  Inserting duplicate object and removing two objects. */
-	printf("\nTESTING FUNCTIONALITY:\n%i\t",inputArray[3]);
+	printf("\nTESTING FUNCTIONALITY:\nAdd %i\t",inputArray[3]);
 	SLInsert(SL,&inputArray[3]);
-	printf("%i\t",inputArray[4]);
+	printf("RM\t%i\t",inputArray[4]);
 	SLRemove(SL, &inputArray[4]);
-	printf("%i\t", *(int*)SL->head->data);
+	printf("RM\t%i\t", *(int*)SL->head->data);
 	SLRemove(SL, SL->head->data);
 
 
@@ -135,7 +136,7 @@ void stringTest()
 								"blink182", "mastodon", "nujabes", "radiohead"};
 	printf("LIST OF OBJECTS:\n");
 	for(i=0; i<=5; i++){
-		printf("%s\t",inputArray[i]);
+		printf("%15s\t",inputArray[i]);
 	}
 	printf("\n\n");
 
@@ -143,20 +144,20 @@ void stringTest()
 	/* Create and fill sorted list with 5 items. */
 	 SL = SLCreate(compareStrings,destroyerNoMalloc);
 	for(i=0; i<=5; i++){
-		printf("Add %15s\t\t",inputArray[i]);
+		printf("Add\t%15s\t\t",inputArray[i]);
 		SLInsert(SL,&inputArray[i]);
 	}
 
 
 	/* Testing:  Inserting duplicate object and removing two objects. */
-	printf("\nTESTING FUNCTIONALITY:\n%15s\t\t",inputArray[3]);
+	printf("\nTESTING FUNCTIONALITY:\nAdd\t%15s\t\t",inputArray[3]);
 	SLInsert(SL,&inputArray[3]);
-	printf("%15s\t\t",inputArray[4]);
+	printf("RM\t%15s\t\t",inputArray[4]);
 	SLRemove(SL, &inputArray[4]);
-	printf("%15s\t\t", *(char**)SL->head->data);
+	printf("RM\t%15s\t\t", *(char**)SL->head->data);
 	SLRemove(SL, SL->head->data);
 
-	printf("Add %15s\t\t",inputArray[6]);
+	printf("Add\t%15s\t\t",inputArray[6]);
 	SLInsert(SL,&inputArray[6]);
 
 
@@ -167,7 +168,8 @@ void stringTest()
 	if(SLGetItem(SLIter) != NULL)
 		printf("0\t%s\n", *(char **)SLGetItem(SLIter));
 
-	SLRemove(SL,&inputArray[1]);
+	// printf("RM\t%15s\t\t",inputArray[1]);
+	// SLRemove(SL,&inputArray[1]);
 
 	do{
 		i++;
@@ -200,33 +202,31 @@ void bandTest()
 	band* blink182		=	(band *)malloc(sizeof(band));
 	band* mastodon		=	(band *)malloc(sizeof(band));
 	band* nujabes		=	(band *)malloc(sizeof(band));
-
 	modestmouse->name 	= 	"Modest Mouse";		modestmouse->formationYear	=	1992;
 	ledzeppelin->name 	= 	"Led Zeppelin";		ledzeppelin->formationYear	= 	1968;
 	destinyschild->name = 	"Destiny's Child";	destinyschild->formationYear = 	1990;
 	blink182->name 		= 	"blink 182";		blink182->formationYear		=	1992;
 	mastodon->name 		= 	"Mastodon";			mastodon->formationYear 	= 	2000;
 	nujabes->name 		= 	"Nujabes";			nujabes->formationYear 		= 	1996;
-
 	band* inputArray[6] 	= 	{modestmouse, blink182, destinyschild, ledzeppelin, mastodon, nujabes};
 
 
 	/* Create and fill sorted list with 5 items. */
 	SL = SLCreate(compareBands,destroyerWithMalloc);
-	SLInsert(SL, modestmouse);
-	SLInsert(SL, destinyschild);
-	SLInsert(SL, blink182);
-	SLInsert(SL, mastodon);
-	SLInsert(SL, nujabes);
-	SLInsert(SL, ledzeppelin);
+	printf("Add\t%s\t", modestmouse->name);		SLInsert(SL, modestmouse);
+	printf("Add\t%s\t", destinyschild->name);	SLInsert(SL, destinyschild);
+	printf("Add\t%s\t", blink182->name);		SLInsert(SL, blink182);
+	printf("Add\t%s\t", mastodon->name);		SLInsert(SL, mastodon);
+	printf("Add\t%s\t\t", nujabes->name);			SLInsert(SL, nujabes);
+	printf("Add\t%s\t", ledzeppelin->name);		SLInsert(SL, ledzeppelin);
 
 
 	/* Testing:  Inserting duplicate object and removing two objects. */
-	printf("\nTESTING FUNCTIONALITY:\n%15s\t\t",inputArray[3]->name);
+	printf("\nTESTING FUNCTIONALITY:\nAdd\t%15s\t\t",inputArray[3]->name);
 	SLInsert(SL,&inputArray[3]->name);
-		printf("%15s\t\t",inputArray[2]->name);
+		printf("Add\t%15s\t\t",inputArray[2]->name);
 	SLRemove(SL, &inputArray[2]->name);
-		printf("%15s\t\t", *(char**)SL->head->data);
+		printf("RM\t%15s\t\t", *(char**)SL->head->data);
 	SLRemove(SL, SL->head->data);
 
 
@@ -257,7 +257,9 @@ void bandTest()
 
 int main(int argc, char** argv){
 
-	char* errMsg = "\nUsage error.  Please use keyword \"integer\", \"string\", or \"struct\" as arg1 value for each respective example.\n";
+	char* errMsg = "\nUsage error.  \
+	Please use keyword \"integer\", \"string\", or \"struct\" \
+	as arg1 value for each respective example.\n";
 
 	if(argc == 1){
 		fprintf(stderr, "%s", errMsg);
@@ -276,3 +278,8 @@ int main(int argc, char** argv){
 
 	return 0;
 }
+
+
+
+
+
